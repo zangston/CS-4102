@@ -1,0 +1,173 @@
+%---------change this for every latex homework
+\def\yourid{wyz5rge}
+\def\collabs{jhs8cue, kd5eyn, spj6s}
+\def\sources{Cormen, et al, Introduction to Algorithms.  \emph{(add others here)}}
+% -----------------------------------------------------
+\def\duedate{Friday, March 18, 2022 at {\bf 11:30 pm}}
+\def\duelocation{via Gradescope}
+\def\htype{Basic}
+\def\hunit{B}
+\def\hnumber{1}
+\def\course{{cs4102 - algorithms - spring 2022}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.25in,right=1.25in,centering,letterpaper]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.1,0.6,0.4} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+\usepackage{listings}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{Unit \hunit: \htype~Homework \hnumber~-~\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} \hfill}
+    \vspace{-2mm}
+       \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}\hunit\hnumber{\Large\MakeLowercase{\htype}}(\yourid)}}
+      }
+   \end{center}
+   \vspace*{1mm}
+   \hrule
+   \vspace*{1mm}
+    {\footnotesize \textbf{Collaboration Policy:} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own {\em independently} written solution. List the computing ids of all of your collaborators in the \texttt{collabs} command at the top of the tex file. Do not share written notes, documents (including Google docs, Overleaf docs, discussion notes, PDFs), or code.  Do not seek published or online solutions for any assignments. If you use any published or online resources (which may not include solutions) when completing this assignment, be sure to cite by naming the book etc.\ or listing a website's URL. Do not submit a solution that you are unable to explain orally to a member of the course staff. Any solutions that share similar text/code will be considered in breach of this policy. Please refer to the syllabus for a complete description of the collaboration policy.
+   \vspace*{1mm}
+    \hrule
+    \vspace*{2mm}
+    \noindent
+    \textbf{Collaborators}: \collabs\\
+    \textbf{Sources}: \sources}
+    \vspace*{2mm}
+    \hrule
+    \vskip 2em
+}
+
+\newcommand{\solution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution:} #1\color{black}}
+\newcommand{\altsolution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution (Alternative):} #1\color{black}}
+
+%\newcommand{\solution}[1]{}
+%\newcommand{\altsolution}[1]{}
+
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\Z}{\mathbb{Z}} % This might be useful for Integers!
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+
+%----Begin your modifications here.  Add your answer in the \solution environment for each question
+
+
+%--- Problem 1 ------------------------------------------------------------------------------
+\begin{problem} Short Questions on BFS  \end{problem}
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\Alph{enumi}}
+    \item What is the maximum number of vertices that can be on the queue at one time in a BFS search? Briefly explain the situation that would cause this number to be on the queue.
+    
+    \solution{
+    For a graph $G$ with $v$ nodes, a maximum of $v-1$ vertices will be on the queue at one time. This situation would occur if starting vertex $s$ is adjacent to all other vertices in the $G$
+    }
+    
+    \item If you draw the BFS tree for an undirected graph $G$, some of the edges in $G$ will not be part of the tree. Explain why it's not possible for one of these non-tree edges to connect two vertices that have a difference of depth that's greater than 1 in the tree. 
+    
+    \solution{
+    Due to the "fanning out" nature of BFS, and BFS will process vertices of equal distance from starting vertex $s$. Assuming $G$ is unweighted, if two vertices have a difference of depth greater than 1 in the BFS tree, then not only are they different distances from $s$, but they are also not adjacent. Because BFS finds the shortest path from $s$ to all other vertices in unweighted $G$, BFS cannot connect two such vertices because no direct path exists between the two.
+    }
+    
+\end{enumerate}
+
+
+%--- Problem 2 ------------------------------------------------------------------------------
+\begin{problem} True or False. (You don't have to explain this in your submission, but you should understand the reason behind your answer.)  \end{problem}
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\Alph{enumi}}
+
+    \item If you use BFS to detect a cycle in an undirected graph, an edge that connects to a vertex that's currently on the queue or has been removed from the queue indicates a cycle as long as that vertex is not the parent of the current node.
+
+    \solution{    
+    True
+    }
+    
+    \item If you use DFS-visit on a \textit{directed} graph with $V>1$ starting at vertex $v_1$, you will always visit the same number of vertices that you would if you started at another node $v_2$.
+    
+    \solution{
+    False
+    }
+    
+    \item If you use DFS-visit on a connected \textit{undirected} graph with $V>1$ starting at vertex $v_1$, you will always visit the same number of vertices that you would if you started at another node $v_2$. (If it were not connected, would your answer change?)
+    
+    \solution{
+    True
+    }
+
+\end{enumerate}
+
+
+%--- Problem 3 ------------------------------------------------------------------------------
+\begin{problem} Finding Cycles Using DFS  \end{problem}
+
+In a few sentences, explain how to recognize a directed graph has a cycle in the DFS-visit algorithm's code we saw in class. How does this need to be modified if the graph is undirected?
+
+\solution{
+    The algorithm we discussed in class for DFS involved marking vertices as seen (grey) or processed (black). I.e., a vertex that has been visited is marked grey, and once all of its adjacent vertices (or children in the case of a digraph) are marked grey, it is marked black. When running DFS, if a vertex were marked grey (placed on the queue) and it points to another vertex already grey, that means that the vertex it points to is also on the queue. The only way this could happen is if one vertex is the ancestor of another, which would create a cycle.
+}
+
+
+%--- Problem 4 ------------------------------------------------------------------------------
+\begin{problem} Finding a path between two vertices \end{problem}
+
+Describe the modifications you would make to DFS-visit() given in class to allow it to find a path from a start node $s$ to a target node $t$. The function should stop the search when it finds the target and return the path from $s$ to $t$.
+
+\solution{
+    While building the DFS tree, maintain a separate stack. Every time the algorithm traverses a vertex, push it onto the stack. When a dead end is reached and DFS needs to back up, pop the vertex off the stack. Repeat this process of pushing and popping as DFS traverses until the target vertex $t$ is found. Push the target onto the stack and end DFS searching. The path from $s$ to $t$ will be stored in the stack in reverse order, starting from the top. If we want the path to be in the correct order, then we can set up a while loop to pop each vertex off the stack into an array, or even another stack.
+}
+
+%--- Problem 5 ------------------------------------------------------------------------------
+\begin{problem} Labeling Nodes in a Connected Components \end{problem}
+
+In a few sentences, explain how you'd modify the DFS functions taught in class to assign a value $v.cc$ to each vertex $v$ in an undirected graph $G$ so that all vertices in the same connected component have the same $cc$ values.  Also, count the number of connected components in $G$. \\
+In addition to your explanation, give the order-class of the time-complexity of your algorithm.
+
+\solution{
+    The approach to this problem is similar to the algorithm we discussed in class for finding SCCs in a digraph. First call DFS-Sweep on $G$, starting at a given vertex to find the discovery and finish times for each vertex. Instantiate an integer for $cc$ and initialize it to 0. Instantiate a list as well. Call DFS on transpose $G^T$, starting at the vertex with the highest finish time, assigning $cc$ to each node, until DFS reaches a seen node, indicating a cycle. Every time a vertex is assigned $cc$, increment the value of index $cc$ in the list we created. After a cycle/SCC has been visited, increment $cc$ and move DFS on to the vertex with the next highest finish time that hasn't been visited yet. Continue this process until no more unvisited vertices remain. We are left with a graph of vertices that all have a number assigned to them that indicates they are a member of an SCC with a corresponding number for identification, as well as a list of counts whose indices correspond to the SCC of the same number.
+}
+
+
+%--- Problem 6 ------------------------------------------------------------------------------
+\begin{problem} BFS and DFS Trees \end{problem}
+
+Consider the BFS tree $T_B$ and the DFS tree $T_D$ for the same graph $G$ and same starting vertex $s$.
+In a few sentences, clearly explain why for every vertex $v$ in $G$, the depth of $v$ in the BFS tree cannot be greater than its depth in the DFS tree. That is:
+$$ \forall \, v \in G.V, depth(T_B, v) \leq depth(T_D, v)$$
+(Here the depth of a node is the number of edges from the node to the tree's root node. Also, you can use properties of BFS and DFS that you've been taught in class. We're not asking you to prove those properties.)
+
+\solution{
+    A node in a BFS tree cannot have a depth greater than the same node in a DFS tree due to the "fanning out" behavior of BFS. Since BFS visits vertices in $G$ of the same degree of adjacency from starting vertex $s$, the tree created by BFS will be wider than it is tall, whereas DFS traverses as far away from $s$ as possible, only backing up as little as possible when encountering dead ends, which will create a tree taller than it is wide. 
+}
+
+
+\begin{problem} Gradescope Submission \end{problem}
+Submit a version of this \verb|.tex| file to Gradescope with your solutions added, along with the compiled PDF.  You should only submit your \verb|.pdf| and \verb|.tex| files.
+
+\end{document}
+

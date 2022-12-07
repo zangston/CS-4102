@@ -1,0 +1,21 @@
+9 11
+p1 port
+rh1 rail-hub
+rh2 rail-hub
+dc1 dist-center
+dc2 dist-center
+s3 store
+dc3 dist-center
+s1 store
+s2 store
+p1 rh1 1
+p1 rh2 1
+rh1 rh2 1
+rh1 dc1 2
+rh1 dc3 3
+rh2 dc2 4
+dc3 dc2 2
+dc2 s3 2
+dc1 s2 3
+s1 s2 2
+dc3 s1 4

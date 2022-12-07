@@ -1,0 +1,161 @@
+%---------change this for every latex homework
+\def\yourid{wyz5rge}
+\def\collabs{jhs8cue, spj6s}
+\def\sources{Cormen, et al, Introduction to Algorithms.  \emph{(add others here)}}
+% -----------------------------------------------------
+\def\duedate{Friday, April 15, 2022 at {\bf 11:30 pm}}
+\def\duelocation{via Gradescope}
+\def\htype{Basic}
+\def\hunit{C}
+\def\hnumber{1}
+\def\course{{cs4102 - algorithms - spring 2022}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.25in,right=1.25in,centering,letterpaper]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.1,0.6,0.4} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+\usepackage{listings}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{Unit \hunit: \htype~Homework \hnumber~-~\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} \hfill}
+    \vspace{-2mm}
+       \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}\hunit\hnumber{\Large\MakeLowercase{\htype}}(\yourid)}}
+      }
+   \end{center}
+   \vspace*{1mm}
+   \hrule
+   \vspace*{1mm}
+    {\footnotesize \textbf{Collaboration Policy:} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own {\em independently} written solution. List the computing ids of all of your collaborators in the \texttt{collabs} command at the top of the tex file. Do not share written notes, documents (including Google docs, Overleaf docs, discussion notes, PDFs), or code.  Do not seek published or online solutions for any assignments. If you use any published or online resources (which may not include solutions) when completing this assignment, be sure to cite by naming the book etc.\ or listing a website's URL. Do not submit a solution that you are unable to explain orally to a member of the course staff. Any solutions that share similar text/code will be considered in breach of this policy. Please refer to the syllabus for a complete description of the collaboration policy.
+   \vspace*{1mm}
+    \hrule
+    \vspace*{2mm}
+    \noindent
+    \textbf{Collaborators}: \collabs\\
+    \textbf{Sources}: \sources}
+    \vspace*{2mm}
+    \hrule
+    \vskip 2em
+}
+
+\newcommand{\solution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution:} #1\color{black}}
+\newcommand{\altsolution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution (Alternative):} #1\color{black}}
+
+%\newcommand{\solution}[1]{}
+%\newcommand{\altsolution}[1]{}
+
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\Z}{\mathbb{Z}} % This might be useful for Integers!
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+
+%----Begin your modifications here.  Add your answer in the \solution environment for each question
+
+
+% Create an algorithm problem (Former exam problem)
+\begin{problem}Birthday Prank\end{problem}
+
+Prof Hott's brother-in-law loves pranks, and in the past he's played the nested-present-boxes prank.  I want to repeat this prank on his birthday this year by putting his tiny gift in a bunch of progressively larger boxes, so that when he opens the large box there's a smaller box inside, which contains a smaller box, etc., until he's finally gotten to the tiny gift inside.  The problem is that I have a set of $n$ boxes after our recent move and I need to find the best way to nest them inside of each other.  Write a \textbf{dynamic programming} algorithm which, given a list of dimensions (length, width, and height) of the $n$ boxes, returns the maximum number of boxes I can nest (i.e. gives the count of the maximum number of boxes my brother-in-law must open).
+    
+    \solution{
+    $nestedBoxes(l, w, h) = max_{k=1}^n\{nestedBoxes(l_k, w_k, h_k)\} + 1$, where k represents the largest box that can fit into the current box.
+
+    This algorithm is a top-down approach that chooses the next box based on whether it can fit the most boxes inside of it after being placed in the first box, i.e., the next largest box. The length, width, and height of the first box are passed into the algorithm so the algorithm can determine if other boxes have smaller dimensions and can thus fit inside. The recursive call passes in the dimensions of the box chosen as that is the new volume of space that any subsequent boxes must fit into. 1 is added onto the end of the recursive call, as this counts the box that the smaller box was just put into. The algorithm will divide the problem into subproblems of all combinations of nested boxes that can fit into each larger box, choosing the optimal solution for each subproblem until it solves the overall problem. The algorithm keeps track of the solutions to subproblems through memoization through use of a 3D array, storing values at indices corresponding to a specific box’s dimensions, and using those data points as inputs to larger subproblems.
+
+    }
+    
+\begin{problem}Arithmetic Optimization\end{problem}
+You are given an arithmetic expression containing $n$ integers and the only operations are additions ($+$)
+and subtractions ($-$). There are no parenthesis in the expression. For example, the expression might be: $1 + 2 - 3 - 4 - 5 + 6$.
+
+You can change the value of the expression by choosing the best order of operations:
+\begin{align*}
+ ((((1 + 2) - 3) - 4) - 5) + 6 &= -3 \\
+ (((1 + 2) - 3) - 4) - (5 + 6) &= -15\\
+ ((1 + 2) - ((3 - 4) - 5)) + 6 &= 15
+\end{align*}
+%  You may not create multiplications; i.e., the following expression is {\em not} allowed:
+%  \[ (1 + 2)(-3 - 4 - 5) + 6. \]
+
+Give a {\bf dynamic programming} algorithm that computes the maximum possible value of the expression. You may assume that
+the input consists of two arrays: \texttt{nums} which is the list of $n$ integers and
+\texttt{ops} which is the list of operations (each entry in \texttt{ops} is either \texttt{'+'}
+or \texttt{'-'}), where \texttt{ops[0]} is the operation between \texttt{nums[0]} and \texttt{nums[1]}. \emph{Hint: consider a similar strategy to our algorithm for matrix chaining.}
+
+    \solution{
+    This is similar to the log cutting problem we have seen in class. We can use dynamic programming to choose which number/operation to “cut”, or exclude from a pair of parentheses in the best way so that the total value of the expression is maximized. Starting with the entire expression, the first number is positive, so compare it against the last number. Any positive number will contribute to the max value, so it can be excluded. Exclude the first or last number based on which one is bigger, leaving us with $maxVal(i, j) = max{maxVal(i+1, j) + nums[i], maxVal(i, j-1) + nums[j]}$. Once we encounter a minus sign at the beginning of a particular subproblem, then we want to find the minimum, as subtracting the most negative value is the same as adding the maximum value. To find the minimum value of an expression, we use the same approach, but excluding the first or last number based on which is more negative. Overall, our algorithm is then described as:
+    
+    \bigskip
+    $maxVal(i, j)_{k=0}^{k=n} = max\{maxVal(i+1, j) + nums[i], maxVal(i, j-1) + nums[j]\}$ 
+    
+    if ops[k] = “+”;
+    
+    $min\{minVal(i+1, j) + nums[i], minVal(i, j-1) + nums[j]\}$
+    
+    if ops[k] = “-”
+
+    }
+  
+\begin{problem}Optimal Substructure\end{problem}
+Please answer the following questions related to \emph{Optimal Substructure}.
+\begin{enumerate}
+    \item Briefly describe how you used \emph{optimal substructure} for the Seam Carving algorithm.
+    
+    \solution{
+    Optimal substructure is used in the seam carving algorithm, as the algorithm must choose the lowest energy seam from top to bottom, so it creates subproblems of the energy level of the current pixel added to the seam energy of one three adjacent pixels directly below it, and chooses the minimum. 
+    
+    $S(n, k) = min\{S(n-1, k-1), S(n-1, k), S(n-1, k+1)\}$ 
+    
+    The values of these subproblems are stored via memoization with an adjacency matrix and then used in larger subproblems.
+    }
+    \item Do we need optimal substructure for Divide and Conquer solutions?  Why or why not?
+    
+    \solution{
+    Yes - divide and conquer solutions also need an optimal substructure, as they break a larger problem into smaller subproblems, whose solutions are combined to determine the solution to the main problem.
+    }
+\end{enumerate}
+
+\begin{problem}Dynamic Programming\end{problem}
+\begin{enumerate}
+\item If a problem can be defined recursively but its subproblems do not overlap and are not repeated, then is dynamic programming a good design strategy for this problem?  If not, is there another design strategy that might be better?
+
+    \solution{
+    If no overlap or repetition exists in the subproblems, then dynamic programming would be a waste of time. There is no decision to be made about how a problem should be divided into subproblems, so memoization would be wasteful - a divide and conquer approach would be better.
+    }
+\item As part of our process for creating a dynamic programming solution, we searched for a good order for solving the subproblems.  Briefly (and intuitively) describe the difference between a top-down and bottom-up approach.  Do both approaches to the same problem produce the same runtime?
+
+    \solution{
+    A top-down dynamic programming approach is recursive in nature, whereas bottom-up is iterative. Top-down begins with a main problem, whose solution depends on breaking it down into subproblems, until the subproblems are small enough to be saved to memory and their values/solutions can then be used to solve larger subproblems going back up the “tree” until an overall solution is computed. Bottom-up involves starting with simple problems and using memoization to use their solutions to build up to larger problems. Both approaches use a lookup table for memoization, but top-down uses recursive calls, giving it slightly more overhead than bottom-up, which only uses the table.
+    }
+\end{enumerate}
+
+\begin{problem} Gradescope Submission \end{problem}
+Submit a version of this \verb|.tex| file to Gradescope with your solutions added, along with the compiled PDF.  You should only submit your \verb|.pdf| and \verb|.tex| files.
+
+\end{document}
+
+

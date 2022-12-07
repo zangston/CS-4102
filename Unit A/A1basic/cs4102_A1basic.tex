@@ -1,0 +1,182 @@
+%---------change this for every latex homework
+\def\yourid{wyz5rge}
+\def\collabs{list your collaborators}
+\def\sources{Cormen, et al, Introduction to Algorithms~\cite{cormen}}
+% -----------------------------------------------------
+\def\duedate{Thursday, February 4, 2022 at 11p}
+\def\duelocation{via Gradescope}
+\def\htype{Basic}
+\def\hunit{A}
+\def\hnumber{1}
+\def\course{{cs4102 - algorithms - spring 2022}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.25in,right=1.25in,centering,letterpaper]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.1,0.6,0.4} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{Unit \hunit: \htype~Homework \hnumber~-~\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} \hfill}
+    \vspace{-2mm}
+       \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}\hunit\hnumber{\Large\MakeLowercase{\htype}}(\yourid)}}
+      }
+   \end{center}
+   \vspace*{1mm}
+   \hrule
+   \vspace*{1mm}
+    {\footnotesize \textbf{Collaboration Policy:} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own {\em independently} written solution. List the computing ids of all of your collaborators in the \texttt{collabs} command at the top of the tex file. Do not share written notes, documents (including Google docs, Overleaf docs, discussion notes, PDFs), or code.  Do not seek published or online solutions for any assignments. If you use any published or online resources (which may not include solutions) when completing this assignment, be sure to cite them. Do not submit a solution that you are unable to explain orally to a member of the course staff. Any solutions that share similar text/code will be considered in breach of this policy. Please refer to the syllabus for a complete description of the collaboration policy.
+   \vspace*{1mm}
+    \hrule
+    \vspace*{2mm}
+    \noindent
+    \textbf{Collaborators}: \collabs\\
+    \textbf{Sources}: \sources}
+    \vspace*{2mm}
+    \hrule
+    \vskip 2em
+}
+\newcommand{\solution}[1]{\medskip\noindent\textbf{Solution:}#1}
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\Z}{\mathbb{Z}} % This might be useful for Integers!
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+
+%----Begin your modifications here
+
+\begin{problem} Proofs \end{problem}
+Learn how to typeset math and construct proofs by reproducing the second proof below. You will need to use the \verb|eqnarray| or \verb|align| environment, as well as the \verb|eqnarray*| or \verb|align*| environment.  Note the reference in red, which should refer correctly to the equation (look up the \verb|ref| command).  The first proof is provided as an example. \textbf{You MAY NOT setup the formulas in an image and link the image into the document.}
+
+\begin{definition}
+    \label{def1}
+A rational number is a fraction $\frac{a}{b}$ where $a$ and $b$ are integers. 
+\end{definition}
+
+\begin{theorem}
+$\sqrt{2}$ is irrational.
+\end{theorem}
+
+\begin{proof}
+    By Contradiction. For a rational number $\frac{a}{b}$, without loss of generality we may suppose that $a$ and $b$ are integers which share no common factors, as otherwise we could remove any common factors (i.e. suppose $\frac{a}{b}$ is in simplest terms). To say $\sqrt{2}$ is irrational is equivalent to stating that $2$ cannot be expressed in the form $(\frac{a}{b})^{2}$. Equivalently, this says that there are no integer values for $a$ and $b$ satisfying
+    \begin{align}
+        \label{eq1}
+        a^2 = 2b^2
+    \end{align}
+
+    Assume toward reaching a contradiction that Equation~\ref{eq1} holds for $a$ and $b$ being integers without any common factor between them. It must be that $a^2$ is even, since $2b^2$ is divisible by $2$, therefore $a$ is even. If $a$ is even, then for some integer $c$
+    \begin{align*}
+        a &= 2c \\
+        a^2 &= (2c)^2 \\
+        2b^2 &= 4c^2 \\
+        b^2 &= 2c^2
+    \end{align*}
+    \noindent therefore, $b$ is even. This implies that $a$ and $b$ are both even, and thus share a common factor of $2$. This contradicts our hypothesis, therefore our hypothesis is false. 
+\end{proof}
+
+\begin{theorem}
+    If $n \in \Z$ is a non-prime integer with $n>1$, then $2^n - 1$ is not prime~\cite{velleman}.
+\end{theorem}
+
+\begin{proof}
+    Direct proof. Since $n$ is not prime, $\exists a, b \in \Z$ such that $a < n$ and $b < n$ and $n = ab$. Let 
+    
+    \begin{align*}
+        x = 2^b - 1
+    \end{align*}
+    
+    and
+    
+    \begin{align*}
+        y = 1 + 2^b + 2^{2b} + ... + 2^{(a-1)b}.
+    \end{align*}
+    
+    Then,
+    
+    \begin{align}
+        \label{eq2}
+        xy &= (2^b - 1 (1 + 2^b + ... + 2^{(a-1)b}) \\
+        \label{eq3}
+        &= 2^b(1 + 2^b + ... + 2^{(a-1)b}) - (1 = 2^b + ... + 2^{a-1)b)}) \\
+        \label{eq4}
+        &= 2^{ab} - 1 \\
+        \label{eq5}
+        &= 2^n - 1.
+    \end{align}
+    
+    \noindent Since $b < n$, then $x = 2^b - 1 < 2^n - 1$. Likewise, since $ab = n > a$, we know that $b > 1$ and $x = 2^b - 1 > 2 - 1 = 1$. Therefore, $y < xy = 2^n - 1$ and $2^n - 1$ can be written as the multiplication of $x$ and $y$ by Equation ~\ref{eq5}. Therefore $2^n - 1$ is not prime.
+\end{proof}
+
+
+
+
+
+\begin{problem} Sums and Equations \end{problem}
+
+Recreate the following equation to practice layering parentheses and brackets.  Hint: consider adding \verb|left| or \verb|right| to your equation.
+
+\begin{align*}
+    T(n) = \Bigg [T(\frac{n}{2^i}) + \sum _{k=0}^{i-1}(\log_2\frac{n}{2^k}) \Bigg ] + 1
+\end{align*}
+
+
+
+
+\begin{problem} Passages \end{problem}
+    Include a passage from \textbf{your} favorite book, including a citation.  You will need to update the \verb|bibliography.bib| file and include it in your submission. Note that your references will be numbered in alphabetical order.  Hint: consider using the \verb|quote| environment.
+
+\begin{quote}
+    “If you know the enemy and know yourself, you need not fear the result of a hundred battles. If you know yourself but not the enemy, for every victory gained you will also suffer a defeat. If you know neither the enemy nor yourself, you will succumb in every battle.” ~\cite{Tzu}
+\end{quote}
+
+
+
+
+\section*{Gradescope Submission}
+Submit your files to the Gradescope assignment ``Unit A - Basic 1 - LaTeX''.  You should only submit the following file types:
+\begin{itemize}
+    \item \verb|.tex| - The text file containing your \LaTeX~markup,
+    \item \verb|.pdf| - The PDF generated by running \LaTeX~on your \verb|.tex| file, and
+    \item \verb|.bib| - The Bibliography file containing BibTex entries of any sources used.
+\end{itemize}
+\textit{Note: If you use Overleaf, you will need to download the PDF and source files separately, then upload the files to Gradescope.}
+
+\section*{Additional Resources}
+
+Along with the examples in this file, here are some other resources to \LaTeX documentation:
+
+\begin{itemize}
+    \item \href{https://www.overleaf.com/learn/latex/Tutorials}{Overleaf Tutorials} - Tutorials on Overleaf
+    \item \href{https://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/}{Latex Primer} - An extensive tutorial
+    \item \href{http://www.cs.put.poznan.pl/ksiek/latexmath.html#set-theory}{Symbols} - Many symbols that you may wish to include
+\end{itemize}
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
+

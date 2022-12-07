@@ -1,0 +1,280 @@
+%---------change this for every latex homework
+\def\yourid{wyz5rge}   % replace with your UVA computing ID
+\def\collabs{spj6s, jhs8cue}
+\def\sources{Cormen, et al, Introduction to Algorithms.  \emph{(add others here)}}
+% -----------------------------------------------------
+\def\duedate{Friday, February 18, 2022 at 11:30 pm }
+\def\duelocation{via Gradescope}
+\def\htype{Basic}
+\def\hunit{A}
+\def\hnumber{2}
+\def\course{{cs4102 - algorithms - spring 2022}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.25in,right=1.25in,centering,letterpaper]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.1,0.6,0.4} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{Unit \hunit: \htype~Homework \hnumber~-~\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} \hfill}
+    \vspace{-2mm}
+       \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}\hunit\hnumber{\Large\MakeLowercase{\htype}}(\yourid)}}
+      }
+   \end{center}
+   \vspace*{1mm}
+   \hrule
+   \vspace*{1mm}
+    {\footnotesize \textbf{Collaboration Policy:} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own {\em independently} written solution. List the computing ids of all of your collaborators in the \texttt{collabs} command at the top of the tex file. Do not share written notes, documents (including Google docs, Overleaf docs, discussion notes, PDFs), or code.  Do not seek published or online solutions for any assignments. If you use any published or online resources (which may not include solutions) when completing this assignment, be sure to cite by naming the book etc.\ or listing a website's URL. Do not submit a solution that you are unable to explain orally to a member of the course staff. Any solutions that share similar text/code will be considered in breach of this policy. Please refer to the syllabus for a complete description of the collaboration policy.
+   \vspace*{1mm}
+    \hrule
+    \vspace*{2mm}
+    \noindent
+    \textbf{Collaborators}: \collabs\\
+    \textbf{Sources}: \sources}
+    \vspace*{2mm}
+    \hrule
+    \vskip 2em
+}
+
+%\newcommand{\solution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution:} #1\color{black}}
+%\newcommand{\altsolution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution (Alternative):} #1\color{black}}
+
+\newcommand{\solution}[1]{}
+\newcommand{\altsolution}[1]{}
+
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\Z}{\mathbb{Z}} % This might be useful for Integers!
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+
+%----Begin your modifications here
+
+
+%--- Problem 1 ------------------------------------------------------------------------------
+\begin{problem} Asymptotics \end{problem}
+
+    \begin{enumerate}   
+    	\item Write a mathematical statement using the appropriate order-class to express ``Algorithm A's worst-case $W(n)$  is quadratic.''
+    	
+    	\textbf{Solution:}  \emph{$W(n) \in O(n^2$)}
+    	
+    	\item Write a mathematical statement using the appropriate order-class to express ``Algorithm A's time-complexity $T(n)$ is never worse than cubic for any input.''
+    	
+    	\textbf{Solution:}  \emph{$T(n) \in O(n^3)$}
+     
+        \item Write a statement using words and an appropriate order-class to express ``It's not possible for an algorithm that solves problem P to succeed unless it does at least a cubic number of operations.''
+ 
+        \textbf{Solution:} \emph{$P(n) \in \Omega(n^3)$}
+     
+        \item Prove or disprove the following statement: 
+        $n (\log n)^2 \in O\left(n^{1.5}(\log n)\right)$.
+        
+        \textbf{Solution:}
+        
+        \begin{proof}
+        Let $c=2$, such that for sufficiently large $n$, $n\log n^2 \leq cn^{1.5}(\log n)$ \\
+        Then, for $n = 1$,  \\
+        
+        \begin{align*}
+        n\log n^2 &= (1)*(\log(1))^2 \\
+        &= 0
+        \end{align*}
+        
+        \begin{align*}
+        cn^{1.5}\log n) &= 2 * ((1)^{1.5}(\log 1) \\
+        &= 0
+        \end{align*}
+       
+        Thus, $\forall n > 1, n\log n^2 \leq 2n^{1.5}\log n$, by direct proof
+        \end{proof}
+            
+    \end{enumerate}
+
+%--- Problem 2 ------------------------------------------------------------------------------
+\begin{problem} Basic Sorting \end{problem}
+    \begin{enumerate}   
+    	\item In a few sentences, explain if changing the comparison done in mergesort's \emph{merge()} function from $\leq$ to $<$ makes the sorting algorithm incorrect, and also whether it makes the sort unstable.
+    	
+    	\textbf{Solution:}  It would remain correct because using an inclusive inequality ($\leq$) instead of exclusive ($<$) would result in the swapping of elements that have the same value, which would not affect the correctness of the sort. It would, however, be an unstable sort, as the sort could be in different orders, and thus the algorithm is not necessarily deterministic 
+    	
+    	\item Which of the following are true about insertion sort and mergesort?
+    		\begin{enumerate} 
+    		\item Insertion sort would run reasonably fast when the list is nearly in reverse-sorted order but with a few items out of order.
+    		\item For small inputs we would still expect mergesort to run more quickly that insertion sort.
+    		\item The lower-bounds argument that showed that sorts like insertion sort must be $\Omega(n^2)$ does not apply to mergesort because when a list item
+    		is moved in \emph{merge()} it may un-do more than one inversion.    
+    		\item We say the cost of ``dividing'' in mergesort is 1 because we must do a constant amount of work to find the midpoint of the subproblem we're sorting.
+    		
+    	\textbf{Solution:}  (c) and (d) are true
+    	
+		\end{enumerate} 
+    	
+    \end{enumerate}       	
+
+%--- Problem 3 ------------------------------------------------------------------------------
+\begin{problem} Recurrence Relations \end{problem}
+      \begin{enumerate}   
+    
+    	\item Reduce the following recurrence to its closed form (i.e.\ remove the recursive part of its definition) using the \emph{unrolling method.}
+    	$$T(n) = 3 T(n/3) + n \textrm{ and } T(1) = 1$$
+    	Be sure to show the general form of the recurrence in terms of how many times you've ``un-rolled'', as well as a formula for how many times you ``un-roll'' before getting to the base case.
+    	
+    	\textbf{Solution:}
+    	
+    	\begin{align*}
+    	T(n) &= 3[3T(n/9) + n/3] + n \\
+    	&= 9T(n/9) + 2n \\
+    	&= 9[3T(n/27) + n/9] + 2n \\
+    	&= 27T(n/27) + 3n \\
+    	... \\
+    	\end{align*}
+    	
+    	We repeat this for $i$ repetitions so that $n/3^i$ tends towards $1$ and $i = log_3n$ and we arrive at a general form
+    	
+    	\begin{align*}
+    	T(n) &= 3^i T(n/3^i) + in \\
+    	&= 3^{\log_3n}T(n/3^{\log_3n}) + (\log n)n \\
+    	&= n\log n
+    	\end{align*}
+
+    	\item Use the Master Theorem to find the order-class for this recurrence: $T(n) = 3 T (n/2) + n \log n$.  State which case applies, and if no case applies and the Master Theorem cannot be used, state that and explain why.
+
+        \textbf{Solution:} \\
+        For $T(n) = 3T(n/2) + n \log n$, \\
+        $a = 3$, $b = 2$, and $f(n) = n \log n$ \\
+        This is Case 1 of the Master Theorem:
+        \begin{align*}
+            f(n) \in O(n^{\log_ba - \epsilon}) \Longrightarrow \log n \in O(n^{\log_23})
+        \end{align*}
+        Thus $T(n) \in \Theta(n^{log_23})$
+
+    	\item Use the Master Theorem to find the order-class for this recurrence: $T(n) = 3 T (n/4) + n \log n$.  State which case applies, and if no case applies and the Master Theorem cannot be used, state that and explain why.
+    	
+    	\textbf{Solution:} \\
+    	For $T(n) = 3T(n/4) + n \log n$, \\
+        $a = 3$, $b = 4$, and $f(n) = n \log n$ \\
+        This is Case 3 of the Master Theorem:
+        \begin{align*}
+            f(n) \in \Omega(n^{\log_ba + \epsilon}) \Longrightarrow \log n \in \Omega(n^{\log_43})
+        \end{align*}
+        Thus $T(n) \in \Theta(n \log n)$
+    	
+    	\item Show you understand how to do a proof using the ``guess and check'' method and induction.   Show that the following recurrence $\in O(n \log_2 n)$:
+    	$$T(n) = 4 T(n/4) + n \textrm{ and } T(1) = 1$$ 
+    	You can assume $n$ is a power of 4.
+    	
+    	\emph{Hints:} For the induction, you have to prove the relationship for a small value of $n$.  You'll find $n=1$ doesn't work, but you can show it holds for the
+    	next larger value of $n$.  (Again, assume $n$ is a power of 4.) It's OK for the induction proof if the relationship holds for some small value of $n$ even
+    	if it doesn't hold for $n=1$.\\
+    	Also, you'll need to guess a value for $c$. For this problem, the value of $c$ is not anything strange or unusual.  A small value will work, you will find it easiest to just keep $c$ in your math calculations and when you get to the final step you can see what value of $c$ makes your relationship true. 
+    	(This problem is much easier than the example we did in class!) 
+    	
+    	\textbf{Solution:}  
+    	\begin{proof}
+    	Let $f(n) = cn\log_2n$, $c \in \Mathbb{N}$  \\
+    	We proceed by induction.    \\
+    	Base Case: $n = 4$
+    	\begin{align*}
+    	T(4) &= 4T(4/4) + 4   \\
+    	&= 4T(1) + 4  \\
+    	&= 8
+    	\end{align*}
+    	
+    	\begin{align*}
+    	f(4) &= 4c\log_24   \\
+    	&= 8c
+    	\end{align*}
+        Thus for all $c \in \Mathbb{N}$, $T(n) \leq f(n)$ holds for base case $n = 4$ and $T(n) \in O(nlog_2n)$ \\
+        
+        Inductive hypothesis: For sufficiently large $n$, $T(n) \leq cn\log_2n$
+        Inductive step: $n = n + 1$
+        
+        \begin{align*}
+            T(n + 1) &= 4T(\frac{n + 1}{4}) + (n + 1)
+        \end{align*}
+        \begin{align*}
+            f(n + 1) = c(n + 1)\log_2(n + 1)
+        \end{align*}
+        Because $\frac{n+1}{4}$ \leq $n$, $T(n + 1) \leq f(n + 1)$. Because our inductive hypothesis holds for our base case and for all cases onwards, it must be the case that $T(n) \in O(n\log n)$
+    	\end{proof}
+    	
+      \end{enumerate}   
+
+%--- Problem 4 ------------------------------------------------------------------------------
+ \begin{problem} Divide and Conquer \#1\end{problem}
+    
+\noindent
+Write pseudo-code that implements a divide and conquer algorithm for the following problem.  Given a list $L$ of size $n$,  find values of the largest and second largest items in the list.  (Assume that $L$ contains unique values.)
+	
+	In your pseudo-code,  you can indicate that a pair of values is returned by a function using Python-like syntax, if you wish.  For example,  a function $funky()$ that had this return statement:\\
+	\hspace*{3em}{\tt return a, b} \\
+	would could be used to assign $a$ to $x$ and $b$ to $y$ if called this way: \\
+	\hspace*{3em}{\tt (x, y) = funky()}
+	
+	\textbf{Solution:}
+	\begin{verbatim}
+	divide(list, a, b, max1, max2)
+	    If b - a <= 1   # Base case
+	        return max(list.at(a), list.(b))
+	    max1 = divide(list, a, (a+b)/2, max1, max2)
+	    max2 = divide(list, (a+b)/2 + 1, b, max1, max2)
+	    return max(max1, max2)  # Recursive call
+	    
+main()
+    # Call divide() on initial list, where a is the first index and b is the list index,
+    # and max1 & max2 parameters are the values at the indices a & b
+	    Max1 = divide(list, a, b, list.at(a), list.at(b))
+	    
+    # Remove the max element from the array
+    	list.remove(Max1)
+    	
+    # Call divide() on array again, now with max removed, to find second largest value
+	    Max2 = divide(list, a, b, list.at(a), list.at(b))
+
+	\end{verbatim}
+	
+%--- Problem 5 ------------------------------------------------------------------------------
+ \begin{problem} Divide and Conquer \#2\end{problem}
+
+\noindent
+\textbf{Conference Superstar.}  There is a CS conference with $n$ attendees. One attendee is a ``superstar'' --- she is new to the field and has written the top paper at the conference.  She is the attendee whom all other attendees know, yet she knows no other attendee.  Specifically, if attendee $a_i$ is the superstar, then $\forall a_j \neq a_i$, $knows(a_j, a_i) == true$ and $knows(a_i, a_j) == false$.  Other attendees may or may not know each other, as is true for ``normal'' meetings.  Give a $O(n)$ algorithm which determines who the superstar is.
+
+\emph{Hint:} Compare pairs of attendees and try to eliminate one of them. Then you might  want to do a swap for each comparison to make sure all attendees that have a certain property are together in one part of your list so you can recurse on just those.      
+      
+\textbf{Solution:}  Our strategy here will involve maintain two lists, one for a list of attendees, and one for a list of attendees who we we have determined to not be the superstar. We will divide the list of attendees into pairs and compare each pair with $knows(a, b)$. Every time $knows(a, b)$ returns $true$, then attendee $a$ knows attendee $b$ and thus cannot be the superstar, so we remove them from the list of attendees and move them to the second list of ruled-out attendees. We keep doing this until there is only one person left in the main list. This one person is remaining because she is the only person who doesn't know anyone else, thus satisfying our condition for the superstar.
+      
+
+\begin{problem} Gradescope Submission \end{problem}
+Submit a version of this \verb|.tex| file to Gradescope with your solutions added.  You should only submit your \verb|.pdf| and \verb|.tex| files.
+
+% Bibliography
+%\bibliographystyle{plain}
+%\bibliography{bibliography}
+
+\end{document}
+

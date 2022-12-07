@@ -1,0 +1,134 @@
+%---------change this for every latex homework
+\def\yourid{wyz5rge}
+\def\collabs{jhs8cue, spj6s}
+\def\sources{Cormen, et al, Introduction to Algorithms.  \emph{(add others here)}}
+% -----------------------------------------------------
+\def\duedate{Friday, April 15, 2022 at {\bf 11:30 pm}}
+\def\duelocation{via Gradescope}
+\def\htype{Basic}
+\def\hunit{C}
+\def\hnumber{2}
+\def\course{{cs4102 - algorithms - spring 2022}}%------
+%-------------------------------------
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage[top=1in,bottom=1.4in,left=1.25in,right=1.25in,centering,letterpaper]{geometry}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.1,0.6,0.4} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\pagestyle{myheadings}
+\markboth{\yourid}{\yourid}
+\usepackage{clrscode}
+\usepackage{listings}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{Unit \hunit: \htype~Homework \hnumber~-~\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} \hfill}
+    \vspace{-2mm}
+       \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}\hunit\hnumber{\Large\MakeLowercase{\htype}}(\yourid)}}
+      }
+   \end{center}
+   \vspace*{1mm}
+   \hrule
+   \vspace*{1mm}
+    {\footnotesize \textbf{Collaboration Policy:} You are encouraged to collaborate with up to 3 other students, but all work submitted must be your own {\em independently} written solution. List the computing ids of all of your collaborators in the \texttt{collabs} command at the top of the tex file. Do not share written notes, documents (including Google docs, Overleaf docs, discussion notes, PDFs), or code.  Do not seek published or online solutions for any assignments. If you use any published or online resources (which may not include solutions) when completing this assignment, be sure to cite by naming the book etc.\ or listing a website's URL. Do not submit a solution that you are unable to explain orally to a member of the course staff. Any solutions that share similar text/code will be considered in breach of this policy. Please refer to the syllabus for a complete description of the collaboration policy.
+   \vspace*{1mm}
+    \hrule
+    \vspace*{2mm}
+    \noindent
+    \textbf{Collaborators}: \collabs\\
+    \textbf{Sources}: \sources}
+    \vspace*{2mm}
+    \hrule
+    \vskip 2em
+}
+
+\newcommand{\solution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution:} #1\color{black}}
+\newcommand{\altsolution}[1]{\color{blue}\hfill\break\noindent\textbf{Solution (Alternative):} #1\color{black}}
+
+%\newcommand{\solution}[1]{}
+%\newcommand{\altsolution}[1]{}
+
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+%\dontprintsemicolon
+%\linesnumbered
+\newtheorem{problem}{\sc\color{cit}problem}
+\newtheorem{practice}{\sc\color{cit}practice}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\Z}{\mathbb{Z}} % This might be useful for Integers!
+
+\begin{document}
+\thispagestyle{empty}
+\handout
+
+%----Begin your modifications here.  Add your answer in the \solution environment for each question
+
+\begin{problem}Load Balancing\end{problem}
+You work for a print shop with 4 printers.  Each printer $i$ has a queue with $n$ jobs: $j_{i,1}, \ldots, j_{i,n}$.  Each job has a number of pages, $p(j_{i,m})$.  A printer's workload $W_i = \sum_{\ell} p(j_{i,\ell})$ is the sum of all pages across jobs for for that printer.  Your goal is to {\em equalize} the workload across all 4 printers so that they all print the same number of total pages. You may only remove jobs from the end of their queues, i.e., job $j_{i,n}$ must be removed before job $j_{i,n-1}$, and you are allowed to remove a different number of jobs from each printer.  Give a \textbf{greedy algorithm} to determine the maximum equalized workload (possibly $0$ pages) across all printers.  Be sure to state your greedy choice property.
+
+   \solution{
+    Begin by computing each printer’s workload. Then equalize their workloads by choosing the printer with the greatest workload and having it print its enqueue job, removing that job from its queue. Repeat this until all four printers have the same workload. The greedy choice property is having the most amount of pages enqueued/having the highest workload. Thus an algorithm that has the “most busy” printer print at each step is a greedy algorithm, as it brings the set of printers closer to being balanced, given the currently known information and available operations.
+    }
+
+\begin{problem}Short Answer Questions. (You don't have to explain your answers in your submission, but you should understand the reason behind your answer.) \end{problem}
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\Alph{enumi}}
+
+\item True or false? Issuing the largest coin first will always solve the \emph{coin change problem} if only two coins are available: the penny and one larger coin. Assume the amount of change is $\geq$ the larger coin.
+\solution{
+    True
+}
+
+\item True or false? The \emph{interval scheduling problem} is always guaranteed to have an optimal solution that contains the interval with the earliest finish time.
+\solution{
+    True
+}
+
+\item Choose one: In our proof of the correctness of the greedy solution to the \emph{interval scheduling problem}, we exchanged the interval $i$ selected by our greedy choice with another interval that finished earlier/later than interval $i$. (Your answer is one of ``earlier'' or ``later.'')
+\solution{
+    Later
+}
+
+\item True or false? A \emph{feasible solution} for the \emph{Huffman encoding problem} is any valid prefix-free code-word table $T$.
+\solution{
+    True
+}
+\end{enumerate}
+
+
+\begin{problem}Optimal Substructure\end{problem}
+Please answer the following questions related to \emph{Optimal Substructure}.
+
+\begin{enumerate}
+\renewcommand{\theenumi}{\Alph{enumi}}
+
+    \item What's the difference in how dynamic programming algorithms versus greedy algorithms use \emph{optimal substructure}?
+    
+    \solution{
+    Greedy algorithms only examine one subproblem and the solutions of said subproblems do not feed into larger problems. The solution to a problem involving dynamic programming requires the solutions to multiple overlapping subproblems through use of memoization.
+    }
+    \item Why did we need to prove the optimal substructure for our greedy Huffman coding algorithm?
+
+    \solution{
+    We had to prove the optimal substructure because all greedy algorithms need to have an optimal substructure to work - every greedy choice needs to leave behind a subproblem that is strictly closer to the desired solution.
+    }
+\end{enumerate}
+
+\begin{problem} Gradescope Submission \end{problem}
+
+Submit a version of this \verb|.tex| file to Gradescope with your solutions added, along with the compiled PDF.  You should only submit your \verb|.pdf| and \verb|.tex| files.
+
+\end{document}
